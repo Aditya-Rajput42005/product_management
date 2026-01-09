@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
 // Create product
 router.post("/", async (req, res) => {
   const product = req.body;
-  if (!product.name || !product.price || !product.image) {
+  if (!product.name || !product.price || !product.url) {
     return res
       .status(400)
       .json({ success: false, message: "Fill all the details" });

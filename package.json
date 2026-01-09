@@ -9,5 +9,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@chakra-ui/react": "^3.30.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "framer-motion": "^12.24.12",
+    "mongoose": "^9.1.2",
+    "react-router-dom": "^7.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
 }
