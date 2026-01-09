@@ -1,9 +1,9 @@
 import { Container, Flex, Text, Link, HStack, Button } from "@chakra-ui/react";
 import React from "react";
-import { IoMdPerson } from "react-icons/io";
+import { CiSquarePlus } from "react-icons/ci";
+
 
 import { Link as RouterLink } from "react-router-dom";
-import { TiShoppingCart } from "react-icons/ti";
 
 export default function Navbar() {
   return (
@@ -34,19 +34,7 @@ export default function Navbar() {
               padding :"1vh"
             }}
           >
-            Cart
-            <TiShoppingCart />
-          </Button>
-          <Button
-            style={{
-              background: "#9F8383",
-              borderRadius: "10px",
-              color: "white",
-              padding :"1vh"
-            }}
-          >
-            SignIn
-            <IoMdPerson/>
+            Add Product
           </Button>
         </HStack>
       </Flex>

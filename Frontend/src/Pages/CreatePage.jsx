@@ -1,6 +1,7 @@
 import { Input, Box, Button, Toast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useProductStore } from "../store/productstore";
+import { Link } from "react-router-dom";
 
 function CreatePage() {
   const [newProduct, setNewProduct] = useState({
@@ -16,8 +17,7 @@ function CreatePage() {
     console.log("success", success);
     console.log("message", message);
 
-    setNewProduct({name:"",price:"",url:""})
-    
+    setNewProduct({ name: "", price: "", url: "" });
   };
 
   return (
@@ -73,10 +73,9 @@ function CreatePage() {
           }
         />
       </Box>
-
-      <Button style={{ maxWidth: "100%" }} onClick={handelAddProduct}>
-        Add Product
-      </Button>
+      <Link to="/" style={{ maxWidth: "100%", margin : "0 auto" }}>
+        <Button style={{maxWidth: "100%"}} onClick={handelAddProduct}>Add Product</Button>
+      </Link>
     </div>
   );
 }
