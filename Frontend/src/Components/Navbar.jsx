@@ -1,11 +1,14 @@
 import { Container, Flex, Text, Link, HStack, Button } from "@chakra-ui/react";
 import React from "react";
 import { CiSquarePlus } from "react-icons/ci";
+import {  Link as RouterLink, useNavigate } from "react-router-dom";
 
-
-import { Link as RouterLink } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+  const handleClick = ()=>{
+    navigate("/create")
+  }
   return (
     <Container maxW="100%" style={{background : "#574964"}}>
       <Flex h="16" alignItems="center" justifyContent="space-between">
@@ -33,9 +36,11 @@ export default function Navbar() {
               color: "white",
               padding :"1vh"
             }}
-          >
+            onClick={handleClick}
+            >
             Add Product
           </Button>
+            
         </HStack>
       </Flex>
     </Container>

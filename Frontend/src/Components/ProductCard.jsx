@@ -13,7 +13,8 @@ export const ProductCard = ({ product }) => {
   return (
     <Box style={{ border: "solid #9F8383 3px",borderRadius : "14px", padding: "25px",justifyContent : "flex-start" }}>
       <img src={product.url} />
-      <Text style={{color : "wheat", padding:"5px", fontSize : "1rem"}}>{product.name}</Text>
+      <Text style={{color : "black", padding:"5px", fontSize : "1.45rem"}}>{product.name}</Text>
+      <Text style={{color : "black", padding:"5px", fontSize : "1.1rem"}}>{product.price}</Text>
 
       <Button style={{maxWidth : "25px", background : "rgb(205, 98, 91)"}} onClick={()=>{handleDeleteProduct(product._id)}}>
         <MdOutlineDeleteOutline />

@@ -17,11 +17,18 @@ function HomePage() {
   return (
     <Container maxW="container.xl">
       <VStack>
-        <Box>
-          <Text style={{ margin: "0 auto", color: "white", textAlign : "center" }}>
-            Current Products
-          </Text>
+        <h1
+          style={{
+            color : "white",
+            fontSize: "32px",
+            fontWeight: "bold",
+            margin: "0.67em 0",
+          }}
+        >
+          This is heading 1
+        </h1>
 
+        <Box>
           <SimpleGrid
             style={{ gap: "20px" }}
             columns={{
@@ -39,7 +46,11 @@ function HomePage() {
                 textAlign="center"
                 gridColumn="1 / -1"
               >
-                No products available <Link to = "/create" style={{ textDecoration:"underline"}} > Create Product </Link>
+                No products available{" "}
+                <Link to="/create" style={{ textDecoration: "underline" }}>
+                  {" "}
+                  Create Product{" "}
+                </Link>
               </Text>
             ) : (
               products.map((product) => (

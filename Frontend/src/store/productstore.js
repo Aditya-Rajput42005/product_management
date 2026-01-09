@@ -15,7 +15,7 @@ export const useProductStore = create((set) => ({
       body: JSON.stringify(newProduct),
     });
     const data = await res.json();
-    set((state) => ({ products: [...state.products, data.data] }));
+    if (data?.data && data.data._id) set((state) => ({ products: [...state.products, data.data] }));
     return { success: true, message: "Product created successfully" };
   },
 
@@ -29,24 +29,27 @@ export const useProductStore = create((set) => ({
   },
 
   deleteProducts: async (pid) => {
-    try {
-      const res = await fetch(`/api/products/${pid}`, {
-        method: "DELETE",
-      });
+  try {
+    const res = await fetch(`/api/products/${pid}`, {
+      method: "DELETE",
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (!res.ok) {
-        return { success: false, message: data.message };
-      }
-
-      set((state) => ({
-        products: state.products.filter((product) => product._id !== pid),
-      }));
-
-      return { success: true, message: "Product deleted" };
-    } catch (error) {
-      return { success: false, message: "Network error" };
+    if (!res.ok) {
+      return { success: false, message: data.message };
     }
-  },
+
+    set((state) => ({
+      products: state.products.filter(
+        (product) => product._id !== pid
+      ),
+    }));
+
+    return { success: true, message: "Product deleted" };
+  } catch (error) {
+    return { success: false, message: "Network error" };
+  }
+},
+
 }));

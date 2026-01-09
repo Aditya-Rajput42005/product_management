@@ -73,8 +73,17 @@ function CreatePage() {
           }
         />
       </Box>
-      <Link to="/" style={{ maxWidth: "100%", margin : "0 auto" }}>
-        <Button style={{maxWidth: "100%"}} onClick={handelAddProduct}>Add Product</Button>
+      <Link
+        to="/"
+        style={{
+          display: "block",
+          maxWidth: "400px",
+          margin: "0 auto",
+        }}
+      >
+        <Button style={{ width: "100%" }} onClick={handelAddProduct}>
+          Add Product
+        </Button>
       </Link>
     </div>
   );
