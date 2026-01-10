@@ -1,3 +1,4 @@
+import { data } from "react-router-dom";
 import { create } from "zustand";
 
 export const useProductStore = create((set) => ({
@@ -35,7 +36,7 @@ export const useProductStore = create((set) => ({
     });
 
     const data = await res.json();
-
+    
     if (!res.ok) {
       return { success: false, message: data.message };
     }
@@ -51,5 +52,33 @@ export const useProductStore = create((set) => ({
     return { success: false, message: "Network error" };
   }
 },
+updateProducts: async (pid, updatedProduct) => {
+  try {
+    const res = await fetch(`/api/products/${pid}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedProduct),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      return { success: false, message: data.message };
+    }
+
+    // 🔥 THIS FIXES THE UNDEFINED ISSUE
+    set((state) => ({
+      products: state.products.map((product) =>
+        product && product._id === pid ? data.data : product
+      ),
+    }));
+
+    return { success: true, message: "Product updated" };
+  } catch (error) {
+    return { success: false, message: "Network error" };
+  }
+},
+
+
 
 }));

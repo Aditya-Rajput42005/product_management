@@ -1,25 +1,43 @@
-import express, { urlencoded } from "express";
-import Product from "./model/products.js";
-import { connectDB } from "./config/db.js"; 
+import express from "express";
+import { connectDB } from "./config/db.js";
 import productRouter from "./routes/productRouter.js";
+import path from "path";
 
 const app = express();
+const __dirname = path.resolve();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Health check
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+// Dev-only health check
+if (process.env.NODE_ENV !== "production") {
+  app.get("/", (req, res) => {
+    res.send("Hello World!");
+  });
+}
 
-// Handels all product routing
+// API routes
 app.use("/api/products", productRouter);
 
-// Database connection
+// Production frontend
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "frontend", "dist")));
+
+  // React Router fallback (Express 5 safe)
+  app.use((req, res) => {
+    res.sendFile(
+      path.join(__dirname, "frontend", "dist", "index.html")
+    );
+  });
+}
+
+// Start server after DB connection
+const PORT = process.env.PORT || 3000;
+
 connectDB()
   .then(() => {
-    app.listen(3000, () => {
-      console.log("Server running on port 3000");
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
     });
   })
   .catch((err) => {

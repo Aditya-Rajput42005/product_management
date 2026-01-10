@@ -1,65 +1,41 @@
-import React, { useEffect } from "react";
-import { Box, Container, VStack, Text, SimpleGrid } from "@chakra-ui/react";
-import { useProductStore } from "../store/productstore.js";
-import { ProductCard } from "../Components/ProductCard.jsx";
+import { Container, SimpleGrid, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useProductStore } from "../store/productstore";
+import { useEffect } from "react";
+import { ProductCard } from "../components/ProductCard";
 
 function HomePage() {
-  const { fetchProducts, products } = useProductStore();
+  const { products, fetchProducts } = useProductStore();
 
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
-  console.log("products", products);
 
-  console.log("Products", products);
+  const safeProducts = Array.isArray(products)
+    ? products.filter((p) => p && p._id)
+    : [];
 
   return (
-    <Container maxW="container.xl">
-      <VStack>
-        <h1
-          style={{
-            color : "white",
-            fontSize: "32px",
-            fontWeight: "bold",
-            margin: "0.67em 0",
-          }}
-        >
-          This is heading 1
-        </h1>
-
-        <Box>
-          <SimpleGrid
-            style={{ gap: "20px" }}
-            columns={{
-              base: 1,
-              md: 2,
-              lg: 3,
-            }}
-            spacing={10}
-            w={"full"}
+    <Container maxW="container.lg">
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6} style={{gap :"20px"}}>
+        {safeProducts.length === 0 ? (
+          <Text
+            color="gray.400"
+            fontSize="lg"
+            textAlign="center"
+            gridColumn="1 / -1"
           >
-            {products.length === 0 ? (
-              <Text
-                color="gray.400"
-                fontSize="lg"
-                textAlign="center"
-                gridColumn="1 / -1"
-              >
-                No products available{" "}
-                <Link to="/create" style={{ textDecoration: "underline" }}>
-                  {" "}
-                  Create Product{" "}
-                </Link>
-              </Text>
-            ) : (
-              products.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))
-            )}
-          </SimpleGrid>
-        </Box>
-      </VStack>
+            No products available{" "}
+            <Link to="/create" style={{ textDecoration: "underline" }}>
+              Create Product
+            </Link>
+          </Text>
+        ) : (
+          safeProducts.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))
+        )}
+      </SimpleGrid>
     </Container>
   );
 }
