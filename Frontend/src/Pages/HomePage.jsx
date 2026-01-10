@@ -11,6 +11,7 @@ function HomePage() {
     fetchProducts();
   }, [fetchProducts]);
 
+  // for not getting any error
   const safeProducts = Array.isArray(products)
     ? products.filter((p) => p && p._id)
     : [];
