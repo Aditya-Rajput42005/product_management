@@ -26,7 +26,7 @@ if (process.env.NODE_ENV === "production") {
   // React Router fallback (Express 5 safe)
   app.use((req, res) => {
     res.sendFile(
-      path.join(__dirname, "frontend", "dist", "index.html")
+      path.join(__dirname, "Frontend", "dist", "index.html")
     );
   });
 }
